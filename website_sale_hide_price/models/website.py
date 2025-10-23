@@ -23,16 +23,41 @@ class Website(models.Model):
     )
 
     def _compute_website_show_price(self):
-        googlebot_uas = [
+        crawler_uas = [
             "Googlebot",
             "Googlebot-Image",
             "Google-InspectionTool",
             "Storebot-Google",
+            "OAI-SearchBot",
+            "ChatGPT-User",
+            "GPTBot",
+            "anthropic-ai",
+            "ClaudeBot",
+            "claude-web",
+            "PerplexityBot",
+            "Perplexity-User",
+            "Google-Extended",
+            "BingBot",
+            "Amazonbot",
+            "Applebot",
+            "Applebot-Extended",
+            "FacebookBot",
+            "meta-externalagent",
+            "LinkedInBot",
+            "Bytespider",
+            "DuckAssistBot",
+            "cohere-ai",
+            "AI2Bot",
+            "CCBot",
+            "Diffbot",
+            "omgili",
+            "TimpiBot",
+            "YouBot",
         ]
         for rec in self:
-            is_googlebot = any(
-                ua in str(request.httprequest.user_agent) for ua in googlebot_uas
+            is_crawler = any(
+                ua in str(request.httprequest.user_agent) for ua in crawler_uas
             )
             rec.website_show_price = (
-                request.env.user.partner_id.website_show_price or is_googlebot
+                request.env.user.partner_id.website_show_price or is_crawler
             )
