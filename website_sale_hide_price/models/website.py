@@ -23,40 +23,49 @@ class Website(models.Model):
     )
 
     def _compute_website_show_price(self):
-        crawler_uas = [
-            "Googlebot",
-            "Googlebot-Image",
-            "Google-InspectionTool",
-            "Storebot-Google",
-            "OAI-SearchBot",
-            "ChatGPT-User",
+        ai_and_search_crawlers = [
             "GPTBot",
-            "anthropic-ai",
+            "ChatGPT-User",
+            "OAI-SearchBot",
             "ClaudeBot",
-            "claude-web",
+            "Claude-Web",
+            "anthropic-ai",
             "PerplexityBot",
-            "Perplexity-User",
+            "Googlebot",
             "Google-Extended",
-            "BingBot",
-            "Amazonbot",
+            "GoogleOther",
+            "AdsBot",
+            "APIs-Google",
+            "Bingbot",
+            "CopilotBot",
+            "AdIdxBot",
             "Applebot",
             "Applebot-Extended",
-            "FacebookBot",
-            "meta-externalagent",
-            "LinkedInBot",
-            "Bytespider",
-            "DuckAssistBot",
-            "cohere-ai",
-            "AI2Bot",
+            "Amazonbot",
+            "Baiduspider",
+            "YandexBot",
+            "DuckDuckBot",
+            "Slurp",
+            "EcosiaBot",
             "CCBot",
-            "Diffbot",
-            "omgili",
-            "TimpiBot",
             "YouBot",
+            "PhindBot",
+            "ExaBot",
+            "AndiBot",
+            "FirecrawlAgent",
+            "LinkedInBot",
+            "Pinterestbot",
+            "facebookexternalhit",
+            "Facebot",
+            "Twitterbot",
+            "DataForSEO-AI",
+            "DeepSeekBot",
+            "OpenRouter-AI",
         ]
+
         for rec in self:
             is_crawler = any(
-                ua in str(request.httprequest.user_agent) for ua in crawler_uas
+                ua in str(request.httprequest.user_agent) for ua in ai_and_search_crawlers
             )
             rec.website_show_price = (
                 request.env.user.partner_id.website_show_price or is_crawler
