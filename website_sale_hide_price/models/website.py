@@ -65,7 +65,8 @@ class Website(models.Model):
 
         for rec in self:
             is_crawler = any(
-                ua in str(request.httprequest.user_agent) for ua in ai_and_search_crawlers
+                ua in str(request.httprequest.user_agent)
+                for ua in ai_and_search_crawlers
             )
             rec.website_show_price = (
                 request.env.user.partner_id.website_show_price or is_crawler
